@@ -22,6 +22,7 @@
 
 
 
+
 int main (void){
 
 
@@ -30,12 +31,24 @@ int main (void){
 		UCSRB=0b00011000;
 		UBRRH=0b00000000;
 		UBRRL=51;
-		u8 Rx=99;
 
-		while(1){
-	Send_Char(Rx);
+		DIO_SetPortDirection( 0 ,  1 ) ;
+		DIO_SetPinDirection( 8 ,  1 ) ;
+		DIO_SetPinDirection( 9 ,  1 ) ;
+		DIO_SetPinDirection( 10 ,  1 ) ;
+		init_LCD();
+		UART_INIT();
+
+		u32 RX;
+
+
+		while (1){
+	RX=Receive_String();
+	LCD_write_string(RX);
+			_delay_ms(2000);
 		}
 
-	return 0;
+
 }
+
 
